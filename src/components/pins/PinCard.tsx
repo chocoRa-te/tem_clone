@@ -1,7 +1,8 @@
+// src/components/pins/PinCard.tsx の修正
 "use client"
 
 import { useState } from "react"
-// import Image from "next/image"
+// 標準のimgタグを使用するのでImageコンポーネントのインポートは削除
 import { Heart, MessageCircle, MoreHorizontal, Share2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -23,7 +24,7 @@ export function PinCard({ imageUrl, title, username, height }: PinCardProps) {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="relative w-full h-full">
-        {/* Imageコンポーネントの代わりにimgタグを使用 */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={imageUrl}
           alt={title}

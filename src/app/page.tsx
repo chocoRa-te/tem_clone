@@ -1,3 +1,4 @@
+// src/app/page.tsx の修正
 "use client"
 
 import { useEffect, useState } from "react"
@@ -18,32 +19,33 @@ export default function Home() {
   const [pins, setPins] = useState<Pin[]>([]);
   
   useEffect(() => {
-    // モックデータ (静的なパスを使用)
+    // 最初のコミットと同じ画像を使用
     const mockPins = [
       {
         id: "1",
-        imageUrl: "/placeholder.svg", // ローカル画像を使用
+        // 相対パスの静的画像を使用
+        imageUrl: "/mountain.jpg", // publicフォルダに画像を配置する必要あり
         title: "美しい山の風景",
         username: "nature_lover",
         height: 350,
       },
       {
         id: "2",
-        imageUrl: "/placeholder.svg",
+        imageUrl: "/food.jpg",
         title: "おいしい料理のレシピ",
         username: "food_master",
         height: 450,
       },
       {
         id: "3",
-        imageUrl: "/placeholder.svg",
+        imageUrl: "/interior.jpg",
         title: "インテリアのアイデア",
         username: "home_designer", 
         height: 380,
       },
       {
         id: "4",
-        imageUrl: "/placeholder.svg",
+        imageUrl: "/travel.jpg",
         title: "旅行の思い出",
         username: "travel_addict",
         height: 420,
