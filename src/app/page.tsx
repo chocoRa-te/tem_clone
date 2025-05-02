@@ -18,7 +18,7 @@ export default function Home() {
   const [pins, setPins] = useState<Pin[]>([]);
   
   useEffect(() => {
-    // モックデータ
+    // モックデータ (静的なパスを使用)
     const mockPins = [
       {
         id: "1",

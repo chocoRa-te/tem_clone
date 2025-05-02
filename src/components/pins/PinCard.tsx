@@ -1,4 +1,3 @@
-// src/components/pins/PinCard.tsx
 "use client"
 
 import { useState } from "react"
@@ -24,11 +23,11 @@ export function PinCard({ imageUrl, title, username, height }: PinCardProps) {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="relative w-full h-full">
-        <Image
-          src={imageUrl || "/placeholder.svg"}
+        {/* Imageコンポーネントの代わりにimgタグを使用 */}
+        <img
+          src={imageUrl}
           alt={title}
-          fill
-          className="object-cover transition-transform duration-200 ease-in-out"
+          className="w-full h-full object-cover transition-transform duration-200 ease-in-out"
           style={{
             transform: isHovered ? "scale(1.05)" : "scale(1)",
             filter: isHovered ? "brightness(0.9)" : "brightness(1)",
@@ -71,5 +70,5 @@ export function PinCard({ imageUrl, title, username, height }: PinCardProps) {
         <p className="text-xs text-gray-700 font-medium">@{username}</p>
       </div>
     </div>
-  )
+  );
 }
