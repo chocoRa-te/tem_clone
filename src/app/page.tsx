@@ -1,3 +1,5 @@
+"use client"
+
 import { PinGrid } from "@/components/pin-grid"
 import { ModeToggle } from "@/components/mode-toggle"
 import { Bell, Menu, MessageSquare, Search } from "lucide-react"

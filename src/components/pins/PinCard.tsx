@@ -14,6 +14,12 @@ interface PinCardProps {
 
 export function PinCard({ imageUrl, title, username, height }: PinCardProps) {
   const [isHovered, setIsHovered] = useState(false)
+  const [imageError, setImageError] = useState(false)
+
+  // 画像が読み込めない場合のフォールバック処理
+  const handleImageError = () => {
+    setImageError(true)
+  }
 
   return (
     <div
@@ -23,16 +29,32 @@ export function PinCard({ imageUrl, title, username, height }: PinCardProps) {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="relative w-full h-full">
-        <Image
-          src={imageUrl || "/placeholder.svg"}
-          alt={title}
-          fill
-          className="object-cover transition-transform duration-200 ease-in-out"
-          style={{
-            transform: isHovered ? "scale(1.05)" : "scale(1)",
-            filter: isHovered ? "brightness(0.9)" : "brightness(1)",
-          }}
-        />
+        {!imageError ? (
+          <div className="relative w-full h-full">
+            <Image
+              src={imageUrl}
+              alt={title}
+              fill
+              className="object-cover transition-transform duration-200 ease-in-out"
+              style={{
+                transform: isHovered ? "scale(1.05)" : "scale(1)",
+                filter: isHovered ? "brightness(0.9)" : "brightness(1)",
+              }}
+              onError={handleImageError}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              priority={false}
+            />
+          </div>
+        ) : (
+          <div 
+            className="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-800"
+            style={{
+              filter: isHovered ? "brightness(0.9)" : "brightness(1)",
+            }}
+          >
+            <span className="text-gray-500 dark:text-gray-400">画像がありません</span>
+          </div>
+        )}
 
         {isHovered && (
           <>
@@ -44,19 +66,19 @@ export function PinCard({ imageUrl, title, username, height }: PinCardProps) {
 
             <div className="absolute bottom-2 left-2 right-2 z-10 flex justify-between">
               <div className="flex space-x-1">
-                <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full bg-white/80 hover:bg-white">
+                <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full bg-white/80 hover:bg-white dark:bg-black/80 dark:hover:bg-black">
                   <Share2 className="w-4 h-4" />
                 </Button>
-                <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full bg-white/80 hover:bg-white">
+                <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full bg-white/80 hover:bg-white dark:bg-black/80 dark:hover:bg-black">
                   <MoreHorizontal className="w-4 h-4" />
                 </Button>
               </div>
 
               <div className="flex space-x-1">
-                <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full bg-white/80 hover:bg-white">
+                <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full bg-white/80 hover:bg-white dark:bg-black/80 dark:hover:bg-black">
                   <MessageCircle className="w-4 h-4" />
                 </Button>
-                <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full bg-white/80 hover:bg-white">
+                <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full bg-white/80 hover:bg-white dark:bg-black/80 dark:hover:bg-black">
                   <Heart className="w-4 h-4" />
                 </Button>
               </div>
