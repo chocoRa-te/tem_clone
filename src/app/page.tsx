@@ -1,149 +1,97 @@
-"use client"
-
-import { useEffect, useState } from "react"
-import Link from "next/link"
-import { Bell, Menu, MessageSquare, Search, User } from "lucide-react"
-import { PinCard } from "@/components/pins/PinCard"
-
-// Pin型を定義
-interface Pin {
-  id: string;
-  imageUrl: string;
-  title: string;
-  username: string;
-  height: number;
-}
-
-// Navbarコンポーネント
-function Navbar() {
-  return (
-    <nav className="sticky top-0 z-50 flex items-center justify-between px-4 py-3 bg-white shadow-sm">
-      {/* ロゴ */}
-      <div className="flex items-center">
-        <Link href="/" className="text-red-600 font-bold text-2xl mr-6">P</Link>
-        <button className="px-4 py-2 bg-black text-white rounded-full text-sm font-medium mr-2">ホーム</button>
-        <button className="px-4 py-2 text-black hover:bg-gray-100 rounded-full text-sm font-medium">作成</button>
-      </div>
-
-      {/* 検索バー */}
-      <div className="flex-1 max-w-xl mx-4">
-        <div className="relative">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <Search className="h-5 w-5 text-gray-400" />
-          </div>
-          <input
-            type="text"
-            placeholder="検索"
-            className="block w-full pl-10 pr-3 py-2 bg-gray-100 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-red-500 focus:bg-white"
-          />
-        </div>
-      </div>
-
-      {/* 右側アイコン */}
-      <div className="flex items-center space-x-2">
-        <button className="p-2 rounded-full hover:bg-gray-100">
-          <Bell className="h-6 w-6 text-gray-700" />
-        </button>
-        <button className="p-2 rounded-full hover:bg-gray-100">
-          <MessageSquare className="h-6 w-6 text-gray-700" />
-        </button>
-        <Link href="/profile" className="p-2 rounded-full hover:bg-gray-100">
-          <User className="h-6 w-6 text-gray-700" />
-        </Link>
-        <button className="p-1 rounded-full hover:bg-gray-100">
-          <Menu className="h-6 w-6 text-gray-700" />
-        </button>
-      </div>
-    </nav>
-  )
-}
+import { PinGrid } from "@/components/pin-grid"
+import { ModeToggle } from "@/components/mode-toggle"
+import { Bell, Menu, MessageSquare, Search } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 
 export default function Home() {
-  // 型引数を指定してuseStateを初期化
-  const [pins, setPins] = useState<Pin[]>([]);
-
-  useEffect(() => {
-    // 最初のコミットと同じ画像を使用
-    const mockPins = [
-      {
-        id: "1",
-        // 相対パスの静的画像を使用
-        imageUrl: "/mountain.jpg", // publicフォルダに画像を配置する必要あり
-        title: "美しい山の風景",
-        username: "nature_lover",
-        height: 350,
-      },
-      {
-        id: "2",
-        imageUrl: "/food.jpg",
-        title: "おいしい料理のレシピ",
-        username: "food_master",
-        height: 450,
-      },
-      {
-        id: "3",
-        imageUrl: "/interior.jpg",
-        title: "インテリアのアイデア",
-        username: "home_designer",
-        height: 380,
-      },
-      {
-        id: "4",
-        imageUrl: "/travel.jpg",
-        title: "旅行の思い出",
-        username: "travel_addict",
-        height: 420,
-      },
-      {
-        id: "5",
-        imageUrl: "/art.jpg",
-        title: "現代アートコレクション",
-        username: "art_lover",
-        height: 380,
-      },
-      {
-        id: "6",
-        imageUrl: "/fashion.jpg",
-        title: "トレンドファッション2025",
-        username: "fashion_stylist",
-        height: 400,
-      },
-      {
-        id: "7",
-        imageUrl: "/garden.jpg",
-        title: "ガーデニングのヒント",
-        username: "plant_enthusiast",
-        height: 340,
-      },
-      {
-        id: "8",
-        imageUrl: "/craft.jpg",
-        title: "DIYクラフトプロジェクト",
-        username: "creative_maker",
-        height: 370,
-      },
-    ];
-
-    setPins(mockPins);
-  }, []);
-
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar />
-
-      <main className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-          {pins.map((pin) => (
-            <PinCard
-              key={pin.id}
-              imageUrl={pin.imageUrl}
-              title={pin.title}
-              username={pin.username}
-              height={pin.height}
-            />
-          ))}
+    <div className="min-h-screen">
+      <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container flex h-14 items-center">
+          <Button variant="ghost" size="icon" className="mr-2 md:hidden">
+            <Menu className="h-5 w-5" />
+            <span className="sr-only">メニュー</span>
+          </Button>
+          
+          <div className="mr-4 hidden md:flex">
+            <a className="mr-6 flex items-center space-x-2" href="/">
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="24" 
+                height="24" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                className="text-red-600"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M8 12h8" />
+                <path d="M12 8v8" />
+              </svg>
+              <span className="hidden font-bold sm:inline-block">
+                ピンテスト
+              </span>
+            </a>
+            <nav className="flex items-center space-x-6 text-sm font-medium">
+              <a
+                className="transition-colors hover:text-foreground/80 text-foreground/60"
+                href="/home"
+              >
+                ホーム
+              </a>
+              <a
+                className="transition-colors hover:text-foreground/80 text-foreground/60"
+                href="/explore"
+              >
+                探索
+              </a>
+              <a
+                className="transition-colors hover:text-foreground/80 text-foreground"
+                href="#"
+              >
+                作成
+              </a>
+            </nav>
+          </div>
+          
+          <div className="flex-1 flex items-center space-x-2">
+            <div className="w-full flex-1 md:w-auto md:flex-none">
+              <div className="relative">
+                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input
+                  type="search"
+                  placeholder="検索..."
+                  className="w-full rounded-full bg-muted pl-8 md:w-[300px] lg:w-[400px]"
+                />
+              </div>
+            </div>
+            
+            <div className="hidden md:flex items-center space-x-2">
+              <Button variant="ghost" size="icon" className="rounded-full">
+                <Bell className="h-5 w-5" />
+                <span className="sr-only">通知</span>
+              </Button>
+              <Button variant="ghost" size="icon" className="rounded-full">
+                <MessageSquare className="h-5 w-5" />
+                <span className="sr-only">メッセージ</span>
+              </Button>
+              <div className="h-8 w-8 rounded-full bg-red-600 flex items-center justify-center text-white">
+                U
+              </div>
+            </div>
+            
+            <ModeToggle />
+          </div>
         </div>
+      </header>
+      
+      <main>
+        <PinGrid />
       </main>
     </div>
-  );
+  )
 }
